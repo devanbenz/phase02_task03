@@ -9,7 +9,8 @@ services:
     ports: 
       - 3306:3306
   wordpress:
-    image: weblwabl/nginx_wp:2.0
+    image: weblwabl/nginx_wp:3.0
+    #build: .
     restart: always
     env_file: 
       - .env
