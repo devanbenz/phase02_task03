@@ -1,5 +1,22 @@
 version: "3.9"
 services:
+  loadbalancer:
+    # The official v2 Traefik docker image
+    image: traefik
+    # Enables the web UI and tells Traefik to listen to docker
+    command: 
+      - "--api.insecure=true"
+      - "--providers.docker=true"
+      - "--providers.docker.exposedbydefault=false"
+      - "--entrypoints.web.address=:80"
+    ports:
+      # The HTTP port
+      - "9000:80"
+      # The Web UI (enabled by --api.insecure=true)
+      - "8080:8080"
+    volumes:
+      # So that Traefik can listen to the Docker events
+      - /var/run/docker.sock:/var/run/docker.sock
   database:
     image: mysql
     command: --default-authentication-plugin=mysql_native_password
@@ -14,10 +31,12 @@ services:
     restart: always
     env_file: 
       - .env
-    ports:
-      - 9000:80
     depends_on: 
       - database
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.wordpress.rule=Host(`localhost`)"
+      - "traefik.http.routers.wordpress.entrypoints=web"
 
         
 

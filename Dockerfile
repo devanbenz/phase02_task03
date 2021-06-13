@@ -8,7 +8,7 @@ RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli
 
 COPY ./src/wp-config.php /var/www/wordpress/
 COPY ./src/app.conf /etc/nginx/conf.d/
-COPY ./src /src/
+COPY ./src/setup-wp.sh /src/setup-wp.sh
 COPY ./supervisord/setup.conf /etc/supervisor/conf.d/
 
 RUN chmod +x /src/setup-wp.sh && chown -R www-data:www-data /var/www/
