@@ -28,6 +28,8 @@ services:
   wordpress:
     image: weblwabl/nginx_wp:3.0
     #build: .
+    deploy:
+      replicas: 2
     restart: always
     env_file: 
       - .env
