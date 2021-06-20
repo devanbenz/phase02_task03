@@ -13,7 +13,7 @@ COPY ./supervisord/setup.conf /etc/supervisor/conf.d/
 RUN chmod +x /src/setup-wp.sh && chown -R www-data:www-data /var/www/
 
 # Set wp plugin env var in dockerfile as it is dependent on the version of docker image you are running 
-ARG PLUG_VER
+ARG PLUG_VER=0.10.0
 ENV WP_PLUGIN=https://github.com/korney4eg/thank-after-post-plugin/releases/download/v${PLUG_VER}/thank-after-post.zip
 
 WORKDIR /var/www/wordpress
